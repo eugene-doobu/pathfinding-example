@@ -1,0 +1,18 @@
+{
+    "name": "ForTheGanEditor",
+    "rootNamespace": "FTGEditor",
+    "references": [
+        "GUID:b453e1f5e3688544a8471e81dd571a51"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
