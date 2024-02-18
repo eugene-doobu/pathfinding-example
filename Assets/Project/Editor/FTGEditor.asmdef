@@ -1,8 +1,12 @@
 {
-    "name": "ForTheGan",
-    "rootNamespace": "FTG",
-    "references": [],
-    "includePlatforms": [],
+    "name": "FTGEditor",
+    "rootNamespace": "FTGEditor",
+    "references": [
+        "GUID:b453e1f5e3688544a8471e81dd571a51"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

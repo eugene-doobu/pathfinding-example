@@ -54,7 +54,7 @@ namespace FTG.HexMap
             var v2     = center + HexMetrics.GetSecondSolidCorner(direction);
 
             AddTriangle(center, v1, v2);
-            AddTriangleColor(cell.color);
+            AddTriangleColor(cell.Color);
 
             if (direction <= HexDirection.SE) TriangulateConnection(direction, cell, v1, v2);
         }
@@ -76,7 +76,7 @@ namespace FTG.HexMap
             else
             {
                 AddQuad(v1, v2, v3, v4);
-                AddQuadColor(cell.color, neighbor.color);
+                AddQuadColor(cell.Color, neighbor.Color);
             }
 
             var nextNeighbor = cell.GetNeighbor(direction.Next());
@@ -110,10 +110,10 @@ namespace FTG.HexMap
         {
             var v3 = HexMetrics.TerraceLerp(beginLeft, endLeft, 1);
             var v4 = HexMetrics.TerraceLerp(beginRight, endRight, 1);
-            var c2 = HexMetrics.TerraceLerp(beginCell.color, endCell.color, 1);
+            var c2 = HexMetrics.TerraceLerp(beginCell.Color, endCell.Color, 1);
 
             AddQuad(beginLeft, beginRight, v3, v4);
-            AddQuadColor(beginCell.color, c2);
+            AddQuadColor(beginCell.Color, c2);
 
             for (var i = 2; i < HexMetrics.terraceSteps; i++)
             {
@@ -122,13 +122,13 @@ namespace FTG.HexMap
                 var c1 = c2;
                 v3 = HexMetrics.TerraceLerp(beginLeft, endLeft, i);
                 v4 = HexMetrics.TerraceLerp(beginRight, endRight, i);
-                c2 = HexMetrics.TerraceLerp(beginCell.color, endCell.color, i);
+                c2 = HexMetrics.TerraceLerp(beginCell.Color, endCell.Color, i);
                 AddQuad(v1, v2, v3, v4);
                 AddQuadColor(c1, c2);
             }
 
             AddQuad(v3, v4, endLeft, endRight);
-            AddQuadColor(c2, endCell.color);
+            AddQuadColor(c2, endCell.Color);
         }
 
         private void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
@@ -224,7 +224,7 @@ namespace FTG.HexMap
             else
             {
                 AddTriangle(bottom, left, right);
-                AddTriangleColor(bottomCell.color, leftCell.color, rightCell.color);
+                AddTriangleColor(bottomCell.Color, leftCell.Color, rightCell.Color);
             }
         }
 
@@ -235,11 +235,11 @@ namespace FTG.HexMap
         {
             var v3 = HexMetrics.TerraceLerp(begin, left, 1);
             var v4 = HexMetrics.TerraceLerp(begin, right, 1);
-            var c3 = HexMetrics.TerraceLerp(beginCell.color, leftCell.color, 1);
-            var c4 = HexMetrics.TerraceLerp(beginCell.color, rightCell.color, 1);
+            var c3 = HexMetrics.TerraceLerp(beginCell.Color, leftCell.Color, 1);
+            var c4 = HexMetrics.TerraceLerp(beginCell.Color, rightCell.Color, 1);
 
             AddTriangle(begin, v3, v4);
-            AddTriangleColor(beginCell.color, c3, c4);
+            AddTriangleColor(beginCell.Color, c3, c4);
 
             for (var i = 2; i < HexMetrics.terraceSteps; i++)
             {
@@ -249,14 +249,14 @@ namespace FTG.HexMap
                 var c2 = c4;
                 v3 = HexMetrics.TerraceLerp(begin, left, i);
                 v4 = HexMetrics.TerraceLerp(begin, right, i);
-                c3 = HexMetrics.TerraceLerp(beginCell.color, leftCell.color, i);
-                c4 = HexMetrics.TerraceLerp(beginCell.color, rightCell.color, i);
+                c3 = HexMetrics.TerraceLerp(beginCell.Color, leftCell.Color, i);
+                c4 = HexMetrics.TerraceLerp(beginCell.Color, rightCell.Color, i);
                 AddQuad(v1, v2, v3, v4);
                 AddQuadColor(c1, c2, c3, c4);
             }
 
             AddQuad(v3, v4, left, right);
-            AddQuadColor(c3, c4, leftCell.color, rightCell.color);
+            AddQuadColor(c3, c4, leftCell.Color, rightCell.Color);
         }
 
         private void TriangulateCornerTerracesCliff(
@@ -268,7 +268,7 @@ namespace FTG.HexMap
             var b             = 1f / (rightCell.Elevation - beginCell.Elevation);
             if (b < 0) b      = -b;
             var boundary      = Vector3.Lerp(begin, right, b);
-            var boundaryColor = Color.Lerp(beginCell.color, rightCell.color, b);
+            var boundaryColor = Color.Lerp(beginCell.Color, rightCell.Color, b);
 
             TriangulateBoundaryTriangle(begin, beginCell, left, leftCell, boundary, boundaryColor);
 
@@ -279,7 +279,7 @@ namespace FTG.HexMap
             else
             {
                 AddTriangle(left, right, boundary);
-                AddTriangleColor(leftCell.color, rightCell.color, boundaryColor);
+                AddTriangleColor(leftCell.Color, rightCell.Color, boundaryColor);
             }
         }
 
@@ -292,7 +292,7 @@ namespace FTG.HexMap
             var b             = 1f / (leftCell.Elevation - beginCell.Elevation);
             if (b < 0) b      = -b;
             var boundary      = Vector3.Lerp(begin, left, b);
-            var boundaryColor = Color.Lerp(beginCell.color, leftCell.color, b);
+            var boundaryColor = Color.Lerp(beginCell.Color, leftCell.Color, b);
 
             TriangulateBoundaryTriangle(right, rightCell, begin, beginCell, boundary, boundaryColor);
 
@@ -303,7 +303,7 @@ namespace FTG.HexMap
             else
             {
                 AddTriangle(left, right, boundary);
-                AddTriangleColor(leftCell.color, rightCell.color, boundaryColor);
+                AddTriangleColor(leftCell.Color, rightCell.Color, boundaryColor);
             }
         }
 
@@ -314,23 +314,23 @@ namespace FTG.HexMap
         )
         {
             var v2 = HexMetrics.TerraceLerp(begin, left, 1);
-            var c2 = HexMetrics.TerraceLerp(beginCell.color, leftCell.color, 1);
+            var c2 = HexMetrics.TerraceLerp(beginCell.Color, leftCell.Color, 1);
 
             AddTriangle(begin, v2, boundary);
-            AddTriangleColor(beginCell.color, c2, boundaryColor);
+            AddTriangleColor(beginCell.Color, c2, boundaryColor);
 
             for (var i = 2; i < HexMetrics.terraceSteps; i++)
             {
                 var v1 = v2;
                 var c1 = c2;
                 v2 = HexMetrics.TerraceLerp(begin, left, i);
-                c2 = HexMetrics.TerraceLerp(beginCell.color, leftCell.color, i);
+                c2 = HexMetrics.TerraceLerp(beginCell.Color, leftCell.Color, i);
                 AddTriangle(v1, v2, boundary);
                 AddTriangleColor(c1, c2, boundaryColor);
             }
 
             AddTriangle(v2, left, boundary);
-            AddTriangleColor(c2, leftCell.color, boundaryColor);
+            AddTriangleColor(c2, leftCell.Color, boundaryColor);
         }
 
 #endregion TriangulateCorner

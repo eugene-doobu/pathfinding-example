@@ -4,27 +4,27 @@ namespace FTG.HexMap
 {
     public class HexCell : MonoBehaviour
     {
-        public HexCoordinates coordinates;
-        public Color          color;
-        public RectTransform  uiRect;
+        [field: SerializeField] public HexCoordinates Coordinates { get; set; }
+        [field: SerializeField] public Color          Color { get; set; }
+        [field: SerializeField] public RectTransform  UIRect { get; set; }
 
         [SerializeField] private HexCell[] neighbors;
 
-        private int elevation;
+        private int _elevation;
 
         public int Elevation
         {
-            get => elevation;
+            get => _elevation;
             set
             {
-                elevation = value;
+                _elevation = value;
                 var position = transform.localPosition;
                 position.y              = value * HexMetrics.elevationStep;
                 transform.localPosition = position;
 
-                var uiPosition = uiRect.localPosition;
-                uiPosition.z         = elevation * -HexMetrics.elevationStep;
-                uiRect.localPosition = uiPosition;
+                var uiPosition = UIRect.localPosition;
+                uiPosition.z         = _elevation * -HexMetrics.elevationStep;
+                UIRect.localPosition = uiPosition;
             }
         }
 
@@ -41,12 +41,12 @@ namespace FTG.HexMap
 
         public HexEdgeType GetEdgeType(HexDirection direction)
         {
-            return HexMetrics.GetEdgeType(elevation, neighbors[(int)direction].elevation);
+            return HexMetrics.GetEdgeType(_elevation, neighbors[(int)direction]._elevation);
         }
 
         public HexEdgeType GetEdgeType(HexCell otherCell)
         {
-            return HexMetrics.GetEdgeType(elevation, otherCell.elevation);
+            return HexMetrics.GetEdgeType(_elevation, otherCell._elevation);
         }
     }
 }

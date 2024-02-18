@@ -5,11 +5,11 @@ namespace FTG.HexMap
 {
     public class HexMapEditor : MonoBehaviour
     {
-        public Color[] colors;
-        public HexGrid hexGrid;
+        [field: SerializeField] public Color[] Colors  { get; set; }
+        [field: SerializeField] public HexGrid HexGrid { get; set; }
 
-        private Color activeColor;
-        private int   activeElevation;
+        private Color _activeColor;
+        private int   _activeElevation;
 
         private void Awake()
         {
@@ -25,24 +25,24 @@ namespace FTG.HexMap
         {
             var        inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(inputRay, out hit)) EditCell(hexGrid.GetCell(hit.point));
+            if (Physics.Raycast(inputRay, out hit)) EditCell(HexGrid.GetCell(hit.point));
         }
 
         private void EditCell(HexCell cell)
         {
-            cell.color     = activeColor;
-            cell.Elevation = activeElevation;
-            hexGrid.Refresh();
+            cell.Color     = _activeColor;
+            cell.Elevation = _activeElevation;
+            HexGrid.Refresh();
         }
 
         public void SelectColor(int index)
         {
-            activeColor = colors[index];
+            _activeColor = Colors[index];
         }
 
         public void SetElevation(float elevation)
         {
-            activeElevation = (int)elevation;
+            _activeElevation = (int)elevation;
         }
     }
 }
