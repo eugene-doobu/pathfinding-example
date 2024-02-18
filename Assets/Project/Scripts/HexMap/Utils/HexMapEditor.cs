@@ -7,45 +7,40 @@ namespace FTG.HexMap
     {
         public Color[] colors;
         public HexGrid hexGrid;
-        
-        private Color activeColor;
-        int activeElevation;
 
-        void Awake() 
+        private Color activeColor;
+        private int   activeElevation;
+
+        private void Awake()
         {
             SelectColor(0);
-        }	
-        void Update() 
-        {
-            if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) 
-            {
-                HandleInput();
-            }
         }
 
-        void HandleInput() 
+        private void Update()
         {
-            Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) HandleInput();
+        }
+
+        private void HandleInput()
+        {
+            var        inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(inputRay, out hit)) 
-            {			
-                EditCell(hexGrid.GetCell(hit.point));
-            }
+            if (Physics.Raycast(inputRay, out hit)) EditCell(hexGrid.GetCell(hit.point));
         }
 
-        void EditCell(HexCell cell) 
+        private void EditCell(HexCell cell)
         {
-            cell.color = activeColor;
+            cell.color     = activeColor;
             cell.Elevation = activeElevation;
             hexGrid.Refresh();
         }
 
-        public void SelectColor(int index) 
+        public void SelectColor(int index)
         {
             activeColor = colors[index];
         }
-        
-        public void SetElevation(float elevation) 
+
+        public void SetElevation(float elevation)
         {
             activeElevation = (int)elevation;
         }
