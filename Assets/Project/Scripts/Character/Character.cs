@@ -69,7 +69,7 @@ namespace FTG.Character
         private void Update()
         {
             SetAnimation();
-            MoveLerp();
+            Move();
         }
 #endregion
 
@@ -87,11 +87,18 @@ namespace FTG.Character
             }
         }
         
-        private void MoveLerp()
+        private void Move()
         {
             if (_target == null) return;
+
+            if (Vector3.Distance(transform.position, _target.position) <= _moveThreshold)
+            {
+                transform.position = _target.position;
+                return;
+            }
             
-            transform.position = Vector3.Lerp(transform.position, _target.position, _speed * Time.deltaTime);
+            var dir = _target.position - transform.position;
+            transform.position += dir.normalized * (_speed * Time.deltaTime);
         }
         
         private void LookAtTarget()
