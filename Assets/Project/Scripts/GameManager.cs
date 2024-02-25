@@ -23,7 +23,7 @@ namespace FTG
         
         [field: SerializeField] public HexCell CurrentCell { get; set; }
         
-        private BFSPathFinding _bfsPathFinding = new();
+        private readonly BFSPathFinding _bfsPathFinding = new();
         
         private bool _isOnPathFindingRender;
 
@@ -33,12 +33,16 @@ namespace FTG
             CurrentCell = hexGrid.GetCell(Vector3.zero);
         }
         
+        public void ChangePathFindingMode(ePathFindingMode mode)
+        {
+            pathFindingMode = mode;
+            ClearGridState();
+        }
+        
         public void FindPath(HexCell end)
         {
             if (_isOnPathFindingRender)
                 return;
-
-            ClearGridState();
             
             _isOnPathFindingRender = true;
             
@@ -49,8 +53,16 @@ namespace FTG
                     pathFinding = _bfsPathFinding;
                     break;
             }
+            
+            if (pathFinding == null) 
+                return;
+            
+            pathFinding.SetHexMapController(hexMapController);
 
-            var path = pathFinding?.FindPath(CurrentCell, end);
+            foreach (var cell in hexGrid.Cells)
+                pathFinding.ClearCellState(cell);
+            
+            var path = pathFinding.FindPath(CurrentCell, end);
             if (path == null) return;
 
             StartCoroutine(RenderPath(path));

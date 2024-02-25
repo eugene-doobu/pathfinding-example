@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using FTG.HexMap;
 using UnityEngine;
@@ -7,6 +6,13 @@ namespace FTG.PathFinding
 {
     public class BFSPathFinding : MonoBehaviour, IPathFinding
     {
+        private HexMapController _hexMapController;
+        
+        public void SetHexMapController(HexMapController hexMapController)
+        {
+            _hexMapController = hexMapController;
+        }
+
         public List<HexCell> FindPath(HexCell start, HexCell end)
         {
             var queue = new Queue<HexCell>();
@@ -26,9 +32,10 @@ namespace FTG.PathFinding
                 {
                     var neighbor = current.GetNeighbor(d);
                     if (neighbor == null || cameFrom.ContainsKey(neighbor))
-                    {
                         continue;
-                    }
+                    
+                    if (neighbor.Color == _hexMapController.Colors[2] || neighbor.Color == _hexMapController.Colors[3])
+                        continue;
 
                     queue.Enqueue(neighbor);
                     cameFrom[neighbor] = current;
@@ -49,6 +56,12 @@ namespace FTG.PathFinding
             path.Add(start);
             path.Reverse();
             return path;
+        }
+
+        public void ClearCellState(HexCell cell)
+        {
+            if (cell.Color == _hexMapController.Colors[0] || cell.Color == _hexMapController.Colors[1])
+                cell.Color = Color.white;
         }
     }
 }

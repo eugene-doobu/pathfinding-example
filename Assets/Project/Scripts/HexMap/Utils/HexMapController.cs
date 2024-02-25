@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,6 +27,11 @@ namespace FTG.HexMap
             SelectColor(0);
         }
 
+        private void Start()
+        {
+            interactionMode = eInteractionMode.MAP_EDIT;
+        }
+
         private void Update()
         {
             if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) HandleInput();
@@ -40,12 +46,17 @@ namespace FTG.HexMap
 
         private void EditCell(HexCell cell)
         {
-            GameManager.FindPath(cell);
-            return;
-            //TODO:
-            cell.Color     = _activeColor;
-            cell.Elevation = _activeElevation;
-            HexGrid.Refresh();
+            switch (interactionMode)
+            {
+                case eInteractionMode.MAP_EDIT:
+                    cell.Color     = _activeColor;
+                    cell.Elevation = _activeElevation;
+                    HexGrid.Refresh();
+                    break;
+                case eInteractionMode.MOVE:
+                    GameManager.FindPath(cell);
+                    break;
+            }
         }
 
         public void SelectColor(int index)
@@ -56,6 +67,11 @@ namespace FTG.HexMap
         public void SetElevation(float elevation)
         {
             _activeElevation = (int)elevation;
+        }
+        
+        public void SetInteractionMode(int mode)
+        {
+            interactionMode = (eInteractionMode)mode;
         }
     }
 }
