@@ -48,5 +48,10 @@ namespace FTG.HexMap
         {
             return HexMetrics.GetEdgeType(_elevation, otherCell._elevation);
         }
+        
+        public int DistanceTo(HexCell otherCell)
+        {
+            return Coordinates.DistanceTo(otherCell.Coordinates);
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace FTG
         
         private readonly BFSPathFinding      _bfsPathFinding      = new();
         private readonly DijkstraPathFinding _dijkstraPathFinding = new();
+        private readonly AStarPathFinding    _aStarPathFinding    = new();
         
         private bool _isOnPathFindingRender;
 
@@ -55,6 +56,9 @@ namespace FTG
                     break;
                 case ePathFindingMode.DIJKSTRA:
                     pathFinding = _dijkstraPathFinding;
+                    break;
+                case ePathFindingMode.A_STAR:
+                    pathFinding = _aStarPathFinding;
                     break;
             }
             

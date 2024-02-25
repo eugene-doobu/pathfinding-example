@@ -907,7 +907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1eba6ff1919c543a27332f24a3f2ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 30
+  _speed: 200
   _moveThreshold: 0.4
 --- !u!1 &249683230
 GameObject:
@@ -1319,8 +1319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675251735050d9b4c99ff0940442aa09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
-  height: 12
+  width: 30
+  height: 30
   cellPrefab: {fileID: 2435660598896781030, guid: 233f0821b7542ff46b3035bd94021f28, type: 3}
   cellLabelPrefab: {fileID: 1186057309405119563, guid: bc455d53551b6d44c84ae7065cd47b05, type: 3}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1984,7 +1984,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 91
+  orthographic size: 230
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2009,7 +2009,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 89.4, y: 122.6, z: 82.4}
+  m_LocalPosition: {x: 237.7, y: 122.6, z: 216.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa9c2fd79df75045930e02d5c3ada79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathFindingMode: 1
+  pathFindingMode: 0
   hexMapController: {fileID: 995414887}
   actor: {fileID: 216064843}
   hexGrid: {fileID: 439664601}

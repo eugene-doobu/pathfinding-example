@@ -59,5 +59,13 @@ namespace FTG.HexMap
 
             return new HexCoordinates(iX, iZ);
         }
+        
+        public int DistanceTo (HexCoordinates other) {
+            var xy =
+                (x < other.x ? other.x - x : x - other.x) +
+                (Y < other.Y ? other.Y - Y : Y - other.Y);
+
+            return (xy + (z < other.z ? other.z - z : z - other.z)) / 2;
+        }
     }
 }
