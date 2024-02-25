@@ -17,6 +17,8 @@ namespace FTG.HexMap
 
         private Canvas  _gridCanvas;
         private HexMesh _hexMesh;
+        
+        public HexCell[] Cells => _cells;
 
         private void Awake()
         {

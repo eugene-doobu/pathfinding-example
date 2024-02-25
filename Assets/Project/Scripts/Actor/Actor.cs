@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using FTG.HexMap;
 using Spine.Unity;
 using UnityEngine;
 
-namespace FTG.Character
+namespace FTG
 {
     public enum AnimationState
     {
@@ -11,13 +12,10 @@ namespace FTG.Character
         MOVE,
     }
     
-    public class Character : MonoBehaviour
+    public class Actor : MonoBehaviour
     {
         [SerializeField] private float _speed = 5f;
         [SerializeField] private float _moveThreshold = 0.1f;
-        
-        // TODO: Remove
-        [SerializeField] private Transform _targetTest;
         
         private Transform _target;
         
@@ -62,7 +60,6 @@ namespace FTG.Character
         private void Awake()
         {
             SkeletonAnim = GetComponent<SkeletonAnimation>();
-            Target       = _targetTest;
             _animState   = AnimationState.IDLE;
         }
         
@@ -73,6 +70,11 @@ namespace FTG.Character
         }
 #endregion
 
+        public void SetStartCell(HexCell cell)
+        {
+            transform.position = cell.transform.position;
+        }
+        
         private void SetAnimation()
         {
             if (_target == null) return;

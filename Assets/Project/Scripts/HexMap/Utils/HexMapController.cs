@@ -3,13 +3,23 @@ using UnityEngine.EventSystems;
 
 namespace FTG.HexMap
 {
-    public class HexMapEditor : MonoBehaviour
+    public enum eInteractionMode
     {
+        MAP_EDIT,
+        MOVE,
+    }
+
+    public class HexMapController : MonoBehaviour
+    {
+        [SerializeField] private eInteractionMode interactionMode;
+        
+        private Color _activeColor;
+        private int   _activeElevation;
+        
         [field: SerializeField] public Color[] Colors  { get; set; }
         [field: SerializeField] public HexGrid HexGrid { get; set; }
 
-        private Color _activeColor;
-        private int   _activeElevation;
+        public GameManager GameManager { get; set; }
 
         private void Awake()
         {
@@ -30,6 +40,9 @@ namespace FTG.HexMap
 
         private void EditCell(HexCell cell)
         {
+            GameManager.FindPath(cell);
+            return;
+            //TODO:
             cell.Color     = _activeColor;
             cell.Elevation = _activeElevation;
             HexGrid.Refresh();
