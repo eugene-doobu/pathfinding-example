@@ -3187,7 +3187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa9c2fd79df75045930e02d5c3ada79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathFindingMode: 0
+  pathFindingMode: 1
   hexMapController: {fileID: 995414887}
   actor: {fileID: 216064843}
   hexGrid: {fileID: 439664601}

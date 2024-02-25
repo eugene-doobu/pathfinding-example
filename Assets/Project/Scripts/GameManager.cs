@@ -23,7 +23,8 @@ namespace FTG
         
         [field: SerializeField] public HexCell CurrentCell { get; set; }
         
-        private readonly BFSPathFinding _bfsPathFinding = new();
+        private readonly BFSPathFinding      _bfsPathFinding      = new();
+        private readonly DijkstraPathFinding _dijkstraPathFinding = new();
         
         private bool _isOnPathFindingRender;
 
@@ -51,6 +52,9 @@ namespace FTG
             {
                 case ePathFindingMode.BFS:
                     pathFinding = _bfsPathFinding;
+                    break;
+                case ePathFindingMode.DIJKSTRA:
+                    pathFinding = _dijkstraPathFinding;
                     break;
             }
             
