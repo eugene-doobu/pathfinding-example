@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FTG.PathFinding
 {
-    public class BFSPathFinding : MonoBehaviour, IPathFinding
+    public class BFSPathFinding : IPathFinding
     {
         private HexMapController _hexMapController;
         
@@ -24,9 +24,7 @@ namespace FTG.PathFinding
             {
                 var current = queue.Dequeue();
                 if (current == end)
-                {
                     break;
-                }
 
                 for (var d = HexDirection.NE; d <= HexDirection.NW; d++)
                 {
@@ -44,14 +42,10 @@ namespace FTG.PathFinding
 
             var path = new List<HexCell>();
             if (!cameFrom.ContainsKey(end))
-            {
                 return path;
-            }
 
             for (var c = end; c != start; c = cameFrom[c])
-            {
                 path.Add(c);
-            }
 
             path.Add(start);
             path.Reverse();
