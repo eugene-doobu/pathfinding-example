@@ -65,11 +65,19 @@ namespace FTG
             var path = pathFinding.FindPath(CurrentCell, end);
             if (path == null) return;
 
-            StartCoroutine(RenderPath(path));
+            StartCoroutine(RenderPath(path, end));
         }
         
-        private IEnumerator RenderPath(List<HexCell> path)
+        private IEnumerator RenderPath(List<HexCell> path, HexCell endCell)
         {
+            if (path.Count == 0)
+            {
+                endCell.Color = Color.red;
+                hexGrid.Refresh();
+                _isOnPathFindingRender = false;
+                yield break;
+            }
+            
             var startCell = path[0];
             actor.SetStartCell(startCell);
             startCell.Color = hexMapController.Colors[0];
